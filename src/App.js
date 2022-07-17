@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setupDogList } from './dogSlice';
+
+import DogSummary from './DogSummary';
+import DogList from './DogList';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  const isLoading = useSelector(state => state.isLoading);
+  const dogList = useSelector(state => state.dogList);
+  const dogSummary = useSelector(state => state.dogSummary);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setupDogList());
+  }, [dispatch]);
+
+  return isLoading ? <div>Loading...</div> : (
+    <div className="app">
+      <DogSummary summary={dogSummary} />
+      <DogList list={dogList} />
     </div>
   );
 }
