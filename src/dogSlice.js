@@ -60,18 +60,6 @@ export const dogSlice = createSlice({
 
       state.dogSummary[action.payload.name].likeCount += 1;
     },
-    setDogList: (state, action) => {
-      state.dogList = action.payload;
-    },
-    setDogSummary: (state, action) => {
-      return {
-        ...state,
-        dogSummary: {
-          ...state.dogSummary,
-          ...action.payload,
-        }
-      }
-    }
   },
   extraReducers: builder => {
     builder
@@ -89,6 +77,6 @@ export const dogSlice = createSlice({
   }
 })
 
-export const { setDogSummary, setDogList, likeDog } = dogSlice.actions
+export const { likeDog } = dogSlice.actions
 
 export default dogSlice.reducer
